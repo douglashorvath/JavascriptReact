@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function verificarNumero(event) {
+            event.preventDefault();
+            let numeroInput = document.getElementById('numeroInput').value;
+            let numero = parseFloat(numeroInput);
+
+            if (!isNaN(numero) && numero > 0 && Number.isInteger(numero)) {
+                if (numero % 2 == 0) {
+                    alert("O número " + numero + " é par.");
+                } else {
+                    alert("O número " + numero + " é ímpar.");
+                }
+            } else {
+                alert("Por favor, insira um número inteiro positivo.");
+            }
+        }
+    </script>
+    <title>Exercício 1</title>
+
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Verifique se o número é Par ou Ímpar. Informe o número:</h2>
+        <form id="numeroForm" class="form-inline" onsubmit="verificarNumero(event);">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="numeroInput" class="sr-only">Número</label>
+                <input type="number" class="form-control" id="numeroInput" placeholder="Insira um número">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Verificar</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
