@@ -12,31 +12,32 @@
         crossorigin="anonymous"></script>
 
     <script>
-        function verificarNumero(event) {
+        function calcularFatorial(event) {
             event.preventDefault();
             let numeroInput = document.getElementById('numeroInput').value;
             let numero = parseInt(numeroInput);
-
+            let fatorial = 1;
+            
             if (!isNaN(numero) && numero > 0 && Number.isInteger(numero)) {
-                if (numero % 2 == 0) {
-                    alert("O número " + numero + " é par.");
-                } else {
-                    alert("O número " + numero + " é ímpar.");
+                for (let i = 2; i <= numero; i++) {
+                    fatorial *= i;
                 }
+                alert("O fatorial de " + numero + " é " + fatorial);
             } else {
                 alert("Por favor, insira um número inteiro positivo.");
             }
+            
         }
     </script>
-    <title>Exercício 1</title>
+    <title>Exercício 3</title>
 
 
 </head>
 
 <body>
     <div class="container mt-5">
-        <h2>Verifique se o número é Par ou Ímpar. Informe um número inteiro positivo:</h2>
-        <form id="numeroForm" class="form-inline" onsubmit="verificarNumero(event);">
+        <h2>Calcular Fatorial. Informe o número inteiro positivo:</h2>
+        <form id="numeroForm" class="form-inline" onsubmit="calcularFatorial(event);">
             <div class="form-group mx-sm-3 mb-2">
                 <label for="numeroInput" class="sr-only">Número</label>
                 <input type="number" class="form-control" id="numeroInput" placeholder="Insira um número">

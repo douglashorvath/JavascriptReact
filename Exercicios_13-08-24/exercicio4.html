@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 4</title>
+</head>
+<body>
+    <script>
+        let dados = prompt("Por favor, insira um dado:");
+        let verificacao = confirm("Você deseja verificar o tipo do dado informado?");
+        if (verificacao) {
+            document.body.innerHTML = `<p>O tipo do dado informado é: ${typeof dados}</p>`;
+        } else {
+            document.body.innerHTML = "<p>Obrigado por visitar essa página</p>";
+        }
+    </script>
+    
+</body>
+</html>
