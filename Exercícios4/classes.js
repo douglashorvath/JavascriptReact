@@ -1,4 +1,3 @@
-
 class Pessoa {
     constructor(nome, email, dataNascimento, telefoneFixo, telefoneCelular) {
         this.nome = nome;

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const alunoFields = document.getElementById('alunoFields');
     const formularioResultado = document.getElementById('dadosExibidos');
 
+    //UPDATE PARA ALUNO/PROFESSOR
     function updateFormFields() {
         const tipoSelecionado = document.querySelector('input[name="tipo"]:checked').value;
         if (tipoSelecionado === 'Professor') {
@@ -19,11 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
         radio.addEventListener('change', updateFormFields);
     });
 
+
+    //VALIDAÇÕES
+
     function validateNome() {
-        const nome = document.getElementById('nome').value;
+        const nome = document.getElementById('nome').value.trim();
         const nomeError = document.getElementById('nomeError');
-        // Valida se há pelo menos duas palavras
-        if (!/^([a-zA-Z]+)\s+([a-zA-Z]+)$/.test(nome)) {
+
+        // Valida se há pelo menos duas palavras (nome e sobrenome), mas permite mais
+        if (!/^([a-zA-Z]+(?:\s+[a-zA-Z]+)+)$/.test(nome)) {
             nomeError.textContent = 'Nome deve conter pelo menos um nome e um sobrenome.';
             return false;
         } else {
@@ -127,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return true;
         }
     }
+
     function validateForm() {
         const isNomeValid = validateNome();
         const isEmailValid = validateEmail();
@@ -139,6 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const isMatriculaAlunoValid = validateMatriculaAluno();
         return isNomeValid && isEmailValid && isDataNascimentoValid && isTelefoneFixoValid && isTelefoneCelularValid && isAreaValid && isMatriculaProfessorValid && isCursoValid && isMatriculaAlunoValid;
     }
+
+    //MÁSCARAS
 
     function formatPhoneInput(input) {
         input.addEventListener('input', () => {
@@ -156,23 +164,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    formatPhoneInput(document.getElementById('telefoneFixo'));
+    formatPhoneInput(document.getElementById('telefoneCelular'));
+
+    //LIMPA OS CAMPOS DE ERRO
     function clearErrors() {
         const errorElements = document.querySelectorAll('.error-message');
         errorElements.forEach(el => el.textContent = '');
 
     }
 
-    formatPhoneInput(document.getElementById('telefoneFixo'));
-    formatPhoneInput(document.getElementById('telefoneCelular'));
-
-    updateFormFields();
-
+    //PARA QUNADO ENVIA O FORMULÁRIO
     form.addEventListener('submit', (event) => {
         if (!validateForm()) {
             event.preventDefault(); // Impede o envio do formulário se a validação falhar
         }
     });
-
+    
     form.addEventListener('blur', (event) => {
         if (event.target.matches('input')) {
             switch (event.target.id) {
@@ -212,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateFormFields(); // Atualiza o formulário ao redefinir
     });
 
+    //QUANDO ENVIA
     form.addEventListener('submit', (event) => {
         alert("Form submission");
         if (!validateForm()) {
@@ -261,4 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault(); // Impede o envio do formulário após mostrar os dados
         }
     });
+
+    updateFormFields();
 });
