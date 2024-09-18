@@ -8,13 +8,30 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateFormFields() {
         const tipoSelecionado = document.querySelector('input[name="tipo"]:checked').value;
         if (tipoSelecionado === 'Professor') {
+            document.getElementById("area").setAttribute('required', 'required');
+            document.getElementById("matriculaProfessor").setAttribute('required', 'required');
+            document.getElementById("lattes").setAttribute('required', 'required');
+            document.getElementById("curso").removeAttribute('required');
+            document.getElementById("matriculaAluno").removeAttribute('required');
             professorFields.style.display = 'block';
             alunoFields.style.display = 'none';
+
         } else {
+            document.getElementById("area").removeAttribute('required');
+            document.getElementById("matriculaProfessor").removeAttribute('required');
+            document.getElementById("lattes").removeAttribute('required');
+            document.getElementById("curso").setAttribute('required', 'required');
+            document.getElementById("matriculaAluno").setAttribute('required', 'required');
             professorFields.style.display = 'none';
             alunoFields.style.display = 'block';
         }
     }
+
+    form.addEventListener('reset', () => {
+        clearErrors();
+        document.getElementById('dadosExibidos').innerHTML = "";
+        setTimeout(updateFormFields, 0);// Atualiza o formulário ao redefinir
+    });
 
     document.querySelectorAll('input[name="tipo"]').forEach(radio => {
         radio.addEventListener('change', updateFormFields);
@@ -22,6 +39,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     //VALIDAÇÕES
+    document.getElementById('nome').addEventListener('blur', validateNome);
+    document.getElementById('email').addEventListener('blur', validateEmail);
+    document.getElementById('dataNascimento').addEventListener('blur', validateDataNascimento);
+    document.getElementById('telefoneFixo').addEventListener('blur', validateTelefoneFixo);
+    document.getElementById('telefoneCelular').addEventListener('blur', validateTelefoneCelular);
+    document.getElementById('area').addEventListener('blur', validateArea);
+    document.getElementById('matriculaProfessor').addEventListener('blur', validateMatriculaProfessor);
+    document.getElementById('curso').addEventListener('blur', validateCurso);
+    document.getElementById('matriculaAluno').addEventListener('blur', validateMatriculaAluno);
+
 
     function validateNome() {
         const nome = document.getElementById('nome').value.trim();
@@ -180,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault(); // Impede o envio do formulário se a validação falhar
         }
     });
-    
+
     form.addEventListener('blur', (event) => {
         if (event.target.matches('input')) {
             switch (event.target.id) {
@@ -215,60 +242,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, true);
 
-    form.addEventListener('reset', () => {
-        clearErrors();
-        updateFormFields(); // Atualiza o formulário ao redefinir
-    });
+
 
     //QUANDO ENVIA
-    form.addEventListener('submit', (event) => {
-        alert("Form submission");
-        if (!validateForm()) {
-            event.preventDefault(); // Impede o envio do formulário se a validação falhar
-        } else {
-            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+    document.getElementById('dynamicForm').addEventListener('submit', (event) => {
+        event.preventDefault(); // Impede o envio do formulário para teste
 
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
-            const dataNascimento = document.getElementById('dataNascimento').value;
-            const telefoneFixo = document.getElementById('telefoneFixo').value;
-            const telefoneCelular = document.getElementById('telefoneCelular').value;
+        const tipo = document.querySelector('input[name="tipo"]:checked').value;
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('email').value;
+        const dataNascimento = document.getElementById('dataNascimento').value;
+        const telefoneFixo = document.getElementById('telefoneFixo').value;
+        const telefoneCelular = document.getElementById('telefoneCelular').value;
 
-            if (tipo === 'Professor') {
-                const area = document.getElementById('area').value;
-                const matriculaProfessor = document.getElementById('matriculaProfessor').value;
-                const lattes = document.getElementById('lattes').value;
+        let resultado = `<h2>Dados:</h2>
+                      <p><strong>Tipo:</strong> ${tipo}</p>
+                      <p><strong>Nome:</strong> ${nome}</p>
+                      <p><strong>Email:</strong> ${email}</p>
+                      <p><strong>Data de Nascimento:</strong> ${dataNascimento}</p>
+                      <p><strong>Telefone Fixo:</strong> ${telefoneFixo}</p>
+                      <p><strong>Telefone Celular:</strong> ${telefoneCelular}</p>`;
 
-                const professor = new Professor(nome, email, dataNascimento, telefoneFixo, telefoneCelular, area, matriculaProfessor, lattes);
-                formularioResultado.innerHTML = `
-                    <h2>Dados do Professor:</h2>
-                    <p><strong>Nome:</strong> ${professor.nome}</p>
-                    <p><strong>Email:</strong> ${professor.email}</p>
-                    <p><strong>Data de Nascimento:</strong> ${professor.dataNascimento}</p>
-                    <p><strong>Telefone Fixo:</strong> ${professor.telefoneFixo}</p>
-                    <p><strong>Telefone Celular:</strong> ${professor.telefoneCelular}</p>
-                    <p><strong>Área de Atuação:</strong> ${professor.area}</p>
-                    <p><strong>Matrícula Professor:</strong> ${professor.matriculaProfessor}</p>
-                    <p><strong>Lattes:</strong> ${professor.lattes}</p>
-                `;
-            } else if (tipo === 'Aluno') {
-                const curso = document.getElementById('curso').value;
-                const matriculaAluno = document.getElementById('matriculaAluno').value;
-
-                const aluno = new Aluno(nome, email, dataNascimento, telefoneFixo, telefoneCelular, curso, matriculaAluno);
-                formularioResultado.innerHTML = `
-                    <h2>Dados do Aluno:</h2>
-                    <p><strong>Nome:</strong> ${aluno.nome}</p>
-                    <p><strong>Email:</strong> ${aluno.email}</p>
-                    <p><strong>Data de Nascimento:</strong> ${aluno.dataNascimento}</p>
-                    <p><strong>Telefone Fixo:</strong> ${aluno.telefoneFixo}</p>
-                    <p><strong>Telefone Celular:</strong> ${aluno.telefoneCelular}</p>
-                    <p><strong>Curso:</strong> ${aluno.curso}</p>
-                    <p><strong>Matrícula Aluno:</strong> ${aluno.matriculaAluno}</p>
-                `;
-            }
-            event.preventDefault(); // Impede o envio do formulário após mostrar os dados
+        if (tipo === 'Professor') {
+            const area = document.getElementById('area').value;
+            const matriculaProfessor = document.getElementById('matriculaProfessor').value;
+            const lattes = document.getElementById('lattes').value;
+            resultado += `<p><strong>Área de Atuação:</strong> ${area}</p>
+                      <p><strong>Matrícula Professor:</strong> ${matriculaProfessor}</p>
+                      <p><strong>Lattes:</strong> ${lattes}</p>`;
+        } else if (tipo === 'Aluno') {
+            const curso = document.getElementById('curso').value;
+            const matriculaAluno = document.getElementById('matriculaAluno').value;
+            resultado += `<p><strong>Curso:</strong> ${curso}</p>
+                      <p><strong>Matrícula Aluno:</strong> ${matriculaAluno}</p>`;
         }
+
+        document.getElementById('dadosExibidos').innerHTML = resultado;
     });
 
     updateFormFields();

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Cadastro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="title">Cadastro</h1>
+        <form id="formCadastro">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome completo">
+                    <small class="error-msg" id="error-nome"></small>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="exemplo@dominio.com">
+                    <small class="error-msg" id="error-email"></small>
+                </div>
+                <div class="col">
+                    <label for="nascimento">Data de Nascimento</label>
+                    <input type="date" id="nascimento" name="nascimento" class="form-control">
+                    <small class="error-msg" id="error-nascimento"></small>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="telefoneFixo">Telefone Fixo</label>
+                    <input type="text" id="telefoneFixo" name="telefoneFixo" class="form-control"
+                        placeholder="(xx) xxxx-xxxx">
+                    <small class="error-msg" id="error-telefoneFixo"></small>
+                </div>
+                <div class="col">
+                    <label for="telefoneCelular">Telefone Celular</label>
+                    <input type="text" id="telefoneCelular" name="telefoneCelular" class="form-control"
+                        placeholder="(xx) xxxxx-xxxx">
+                    <small class="error-msg" id="error-telefoneCelular"></small>
+                </div>
+                <div class="col">
+                    <label for="tipoCadastro">Tipo</label><br>
+                    <input type="radio" name="tipoCadastro" id="professor" value="Professor" checked> Professor <br>
+                    <input type="radio" name="tipoCadastro" id="aluno" value="Aluno"> Aluno
+                </div>
+            </div>
+            <div id="camposEspecificos">
+                <!-- Campos dinâmicos -->
+            </div>
+            <div class="row justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary mx-2">Enviar</button>
+                <button type="reset" class="btn btn-secondary mx-2" id="resetButton">Redefinir</button>
+            </div>
+            <div id="resultado" class="mt-3"></div>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="classes.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

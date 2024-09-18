@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="classes.js"></script>
     <script type="text/javascript" src="script.js"></script>
     <title>Formulário de Cadastro</title>
 </head>
@@ -14,24 +15,21 @@
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">Formulário de Cadastro</h2>
-        <form id="dynamicForm" onsubmit="return validateForm()">
+        <form id="dynamicForm">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Digite seu nome completo" required
-                    onblur="validateNome()">
+                <input type="text" class="form-control" id="nome" placeholder="Digite seu nome completo" required>
                 <div id="nomeError" class="error-message text-danger"></div>
             </div>
             <div class="form-inline mb-3">
                 <div class="form-group">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Digite seu email" required
-                        onblur="validateEmail()">
+                    <input type="email" class="form-control" id="email" placeholder="Digite seu email" required>
                     <div id="emailError" class="error-message text-danger"></div>
                 </div>
                 <div class="form-group">
                     <label for="dataNascimento" class="form-label">Data de Nascimento</label>
-                    <input type="date" class="form-control" id="dataNascimento" placeholder="dd/mm/aaaa" required
-                        onblur="validateDataNascimento()">
+                    <input type="date" class="form-control" id="dataNascimento" placeholder="dd/mm/aaaa" required>
                     <div id="dataNascimentoError" class="error-message text-danger"></div>
                 </div>
             </div>
@@ -39,13 +37,13 @@
                 <div class="form-group">
                     <label for="telefoneFixo" class="form-label">Telefone Fixo</label>
                     <input type="tel" class="form-control" id="telefoneFixo" placeholder="(99) 9999-9999" required
-                        maxlength="14" onblur="validateTelefoneFixo()">
+                        maxlength="14">
                     <div id="telefoneFixoError" class="error-message text-danger"></div>
                 </div>
                 <div class="form-group">
                     <label for="telefoneCelular" class="form-label">Telefone Celular</label>
                     <input type="tel" class="form-control" id="telefoneCelular" placeholder="(99) 99999-9999" required
-                        maxlength="15" onblur="validateTelefoneCelular()">
+                        maxlength="15">
                     <div id="telefoneCelularError" class="error-message text-danger"></div>
                 </div>
                 <div class="form-group">
@@ -65,36 +63,33 @@
                 <div class="form-inline mb-3">
                     <div class="form-group">
                         <label for="area" class="form-label">Área</label>
-                        <input type="text" class="form-control" id="area" placeholder="Digite sua área de atuação"
-                            onblur="validateArea()" required>
+                        <input type="text" class="form-control" id="area" placeholder="Digite sua área de atuação">
                         <div id="areaError" class="error-message text-danger"></div>
                     </div>
                     <div class="form-group">
                         <label for="matriculaProfessor" class="form-label">Matrícula</label>
                         <input type="text" class="form-control" id="matriculaProfessor"
-                            placeholder="Digite sua matrícula" onblur="validateMatriculaProfessor()" required
-                            maxlength="5">
+                            placeholder="Digite sua matrícula" maxlength="5">
                         <div id="matriculaProfessorError" class="error-message text-danger"></div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="lattes" class="form-label">Lattes</label>
                     <input type="text" class="form-control" id="lattes"
-                        placeholder="Digite aqui o endereço para seu Lattes" required>
+                        placeholder="Digite aqui o endereço para seu Lattes">
                 </div>
             </div>
             <div id="alunoFields" class="form-section">
                 <div class="form-inline mb-3">
                     <div class="form-group">
                         <label for="curso" class="form-label">Curso</label>
-                        <input type="text" class="form-control" id="curso" placeholder="Digite seu curso"
-                            onblur="validateCurso()" required>
+                        <input type="text" class="form-control" id="curso" placeholder="Digite seu curso">
                         <div id="cursoError" class="error-message text-danger"></div>
                     </div>
                     <div class="form-group">
                         <label for="matriculaAluno" class="form-label">Matrícula</label>
                         <input type="text" class="form-control" id="matriculaAluno" placeholder="Digite sua matrícula"
-                            maxlength="10" onblur="validateMatriculaAluno()" required>
+                            maxlength="10">
                         <div id="matriculaAlunoError" class="error-message text-danger"></div>
                     </div>
                 </div>
