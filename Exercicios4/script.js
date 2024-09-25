@@ -242,12 +242,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, true);
 
+    function formatarData(dataNascimento) {
+        const data = new Date(dataNascimento);
+        const dia = String(data.getDate()).padStart(2, '0');
+        const mes = String(data.getMonth() + 1).padStart(2, '0');
+        const ano = data.getFullYear();
+
+        return `${dia}/${mes}/${ano}`;
+    }
+
+    //EXIBE OS DADOS DA PESSOA ABAIXO DO FORMULARIO (agora usando POO kkkkk)
+    function exibirDados(pessoa) {
+        const dataNascimentoFormatada = formatarData(pessoa.dataNascimento);
+
+        let tipoPessoa = '';
+        if (pessoa instanceof Professor) {
+            tipoPessoa = 'Professor';
+        } else if (pessoa instanceof Aluno) {
+            tipoPessoa = 'Aluno';
+        }
+
+        let resultado = `<h2>Dados:</h2>
+                    <p><strong>Tipo:</strong> ${tipoPessoa}</p>
+                    <p><strong>Nome:</strong> ${pessoa.nome}</p>
+                    <p><strong>Email:</strong> ${pessoa.email}</p>
+                    <p><strong>Data de Nascimento:</strong> ${dataNascimentoFormatada}</p>
+                    <p><strong>Telefone Fixo:</strong> ${pessoa.telefoneFixo}</p>
+                    <p><strong>Telefone Celular:</strong> ${pessoa.telefoneCelular}</p>`;
+
+        if (pessoa instanceof Professor) {
+            resultado += `<p><strong>Área de Atuação:</strong> ${pessoa.area}</p>
+                      <p><strong>Matrícula Professor:</strong> ${pessoa.matriculaProfessor}</p>
+                      <p><strong>Lattes:</strong> ${pessoa.lattes}</p>`;
+        } else if (pessoa instanceof Aluno) {
+            resultado += `<p><strong>Curso:</strong> ${pessoa.curso}</p>
+                      <p><strong>Matrícula Aluno:</strong> ${pessoa.matriculaAluno}</p>`;
+        }
+
+        document.getElementById('dadosExibidos').innerHTML = resultado;
+    }
 
 
-    //QUANDO ENVIA
-    document.getElementById('dynamicForm').addEventListener('submit', (event) => {
-        event.preventDefault(); // Impede o envio do formulário para teste
-
+    function criarObjeto() {
         const tipo = document.querySelector('input[name="tipo"]:checked').value;
         const nome = document.getElementById('nome').value;
         const email = document.getElementById('email').value;
@@ -255,29 +291,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const telefoneFixo = document.getElementById('telefoneFixo').value;
         const telefoneCelular = document.getElementById('telefoneCelular').value;
 
-        let resultado = `<h2>Dados:</h2>
-                      <p><strong>Tipo:</strong> ${tipo}</p>
-                      <p><strong>Nome:</strong> ${nome}</p>
-                      <p><strong>Email:</strong> ${email}</p>
-                      <p><strong>Data de Nascimento:</strong> ${dataNascimento}</p>
-                      <p><strong>Telefone Fixo:</strong> ${telefoneFixo}</p>
-                      <p><strong>Telefone Celular:</strong> ${telefoneCelular}</p>`;
-
         if (tipo === 'Professor') {
             const area = document.getElementById('area').value;
             const matriculaProfessor = document.getElementById('matriculaProfessor').value;
             const lattes = document.getElementById('lattes').value;
-            resultado += `<p><strong>Área de Atuação:</strong> ${area}</p>
-                      <p><strong>Matrícula Professor:</strong> ${matriculaProfessor}</p>
-                      <p><strong>Lattes:</strong> ${lattes}</p>`;
+            return new Professor(nome, email, dataNascimento, telefoneFixo, telefoneCelular, area, matriculaProfessor, lattes);
         } else if (tipo === 'Aluno') {
             const curso = document.getElementById('curso').value;
             const matriculaAluno = document.getElementById('matriculaAluno').value;
-            resultado += `<p><strong>Curso:</strong> ${curso}</p>
-                      <p><strong>Matrícula Aluno:</strong> ${matriculaAluno}</p>`;
+            return new Aluno(nome, email, dataNascimento, telefoneFixo, telefoneCelular, curso, matriculaAluno);
         }
+    }
 
-        document.getElementById('dadosExibidos').innerHTML = resultado;
+
+
+    //QUANDO ENVIA
+    document.getElementById('dynamicForm').addEventListener('submit', (event) => {
+        event.preventDefault(); // Impede o envio do formulário para teste
+
+        exibirDados(criarObjeto());
     });
 
     updateFormFields();
