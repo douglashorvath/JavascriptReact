@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letreiro Fatec</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            /* Fundo preto */
+            color: #fff;
+            /* Letra branca */
+            font-size: 48px;
+            /* Tamanho da fonte em letras garrafais */
+            text-transform: uppercase;
+            /* Letras maiúsculas */
+            margin: 0;
+            /* Remover margens do body */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const TypingText = ({ text }) => {
+            const [displayedText, setDisplayedText] = React.useState("");
+            const [index, setIndex] = React.useState(0);
+
+            React.useEffect(() => {
+                if (index < text.length) {
+                    const timeout = setTimeout(() => {
+                        setDisplayedText(prev => prev + text[index]);
+                        setIndex(index + 1);
+                    }, 100); // Tempo em milissegundos entre cada letra
+
+                    return () => clearTimeout(timeout);
+                }
+            }, [index, text]);
+
+            return <h1>{displayedText}</h1>;
+        };
+
+        const App = () => {
+            return (
+                <div>
+                    <TypingText text="Venha estudar na Fatec" />
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+</body>
+
+</html>
